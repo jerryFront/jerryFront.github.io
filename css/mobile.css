@@ -33,6 +33,33 @@
   }
 }
 
+@keyframes rotateOn{
+  0%{
+    transform: rotate(0);
+    -webkit-transform: rotate(0);
+    -moz-transform: rotate(0);
+    -o-transform: rotate(0);
+  }
+  50%{
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+  }
+  99.9%{
+    transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+  }
+  100%{
+    transform: rotate(0);
+    -webkit-transform: rotate(0);
+    -moz-transform: rotate(0);
+    -o-transform: rotate(0);
+  }
+}
+
 /*xs*/
 @media (max-width: 768px) {
 
@@ -63,6 +90,37 @@
     z-index:20;
     -webkit-animation: bounceIn 3000ms infinite;
     animation: bounceIn 3000ms infinite;
+  }
+
+
+  .music-wrap{
+    position:fixed;
+    right:15px;
+    top:15px;
+    z-index:8888;
+    width:40px;
+    height:40px;
+    border-radius:100%;
+    -webkit-border-radius:100%;
+    -moz-border-radius:100%;
+    -ms-border-radius:100%;
+    -o-border-radius:100%;
+  }
+
+  .music-wrap .on{
+    width:40px;
+    height:40px;
+    background:url(../images/icon/on.png) center no-repeat;
+    background-size:contain;
+    -webkit-animation:rotateOn 3s linear infinite;
+    animation: rotateOn 3s linear infinite;
+  } 
+
+  .music-wrap .off{
+    width:40px;
+    height:40px;
+    background:url(../images/icon/off.png) center no-repeat;
+    background-size:contain;
   }
   
   .preloader>aside{
@@ -203,10 +261,20 @@
     left:0;
     bottom:0;
     width:10rem;
-    height:12.04rem;
-    background:url(../images/mobile/service_2.png) center no-repeat;
+    height:10.587rem;
+    background:url(../images/mobile/banner.gif) center no-repeat;
     background-size:contain; 
    }
+
+   #tops .bottle{
+    position:absolute;
+    width:4.6rem;
+    height:2.813rem;
+    right:2rem;
+    bottom:-1.713rem;
+    background:url(../images/mobile/service_bottle.png) center no-repeat;
+    background-size:contain; 
+  }
 
 
     /*************
@@ -220,15 +288,6 @@
        overflow-y:hidden;
     }
 
-    #service .bg-top{
-      position:absolute;
-      top:-1px;
-      left:0.4rem;
-      width:7.48rem;
-      height:4.41rem;
-      background:url(../images/mobile/service_top.png) center no-repeat;
-      background-size:contain; 
-    }
 
     #service .bg-word{
       position:absolute;
@@ -242,6 +301,28 @@
       -webkit-transform:translateY(-50%);
       -moz-transform: translateY(-50%);
     }
+
+    #service .bg-top{
+      position:absolute;
+      top:1.13rem;
+      width:2.293rem;
+      height:2.92rem;
+      background:url(../images/mobile/service_top2.png) center no-repeat;
+      background-size:cover; 
+      left:0.46rem;
+    }
+
+
+    #service .bottle{
+      position:absolute;
+      width:4.6rem;
+      height:2.813rem;
+      right:2rem;
+      top:-1.1rem;
+      background:url(../images/mobile/service_bottle.png) center no-repeat;
+      background-size:contain; 
+    }
+
    
    #service .slogan-area{
       position:relative;
@@ -354,7 +435,7 @@
   }
 
   #case .margin-video{
-    margin-top:-3.82rem !important;
+    margin-top:-3.62rem !important;
   }
 
   #case .swiper-slide .text1{
@@ -376,7 +457,7 @@
   #case .swiper-slide .text3{
     width:5.33rem;
     height:1.12rem;
-    background:url(../images/case/wei/slogan.png) center no-repeat;
+    background:url(../images/case/run/slogan.png) center no-repeat;
     background-size:cover;
     margin:0.363rem auto 0.17rem;
   }
@@ -517,7 +598,9 @@
     }
 
 
-
+    #partner{
+      margin-bottom:20px;
+    }
 
     /************
     ****Teams*****
@@ -528,6 +611,7 @@
       width:100%;
       height:100%;
       background:rgb(49,49,49);
+      overflow-x:hidden;
       color:#fff;
     }
 
@@ -543,14 +627,13 @@
     #team .bg-word{
       position:absolute;
       top:50%;
-      left:0;
-      width:9.173rem;
-      height:6.707rem;
-      background:url(../images/mobile/job_word.png) center center no-repeat;
-      background-size:cover; 
-      transform: translateY(-50%);
-      -webkit-transform:translateY(-50%);
-      -moz-transform: translateY(-50%);
+      left:50%;
+      display:block;
+      width:auto;
+      height:6.8rem;
+      transform: translateX(-50%) translateY(-50%);
+      -webkit-transform:translateX(-50%) translateY(-50%);
+      -moz-transform: translateX(-50%) translateY(-50%);
     }
 
     #team .notice{
@@ -678,79 +761,33 @@
       position:relative;
       background:rgb(210,210,210);
     }
+
+    #contact-us .marginBottom{
+      margin-bottom:30px;
+    }
     
 
 }
 
 /* 适配低于667px，有导航栏的情况 */
-@media screen and (max-height:666px){
+@media screen and (max-height:677px){
 
   #tops .top-bottom{
      left:50%;
      width:10rem;
-     height:10.38rem;
-     background:url(../images/mobile/service2.png) center no-repeat;
+     height:10.587rem;
+     background:url(../images/mobile/banner.gif) center no-repeat;
      background-size:cover;
      transform: translateX(-50%);
      -webkit-transform: translateX(-50%);
      -moz-transform: translateX(-50%);
   }
 
-  #service .bg-top{
-    width:7.306rem;
-    height:3.63rem;
-    background:url(../images/mobile/service_top2.png) center no-repeat;
-    background-size:contain; 
-    left:0.72rem;
-  }
+
+
 
   #service .slogan-area{
     margin: 4rem auto 0;
-  }
-
-
-  #case .swiper-container{
-    position:relative;
-    width:96%;
-    height:12.92rem;
-    overflow-y:hidden;
-  }
-
-  #case .swiper-slide {
-    text-align: center;
-    font-size: 0.187rem;
-    box-sizing: border-box;
-    height:11.41rem;
-    color:#fff;
-  }
-
-  #case .swiper-slide img{
-    position:relative;
-    width:100%;
-    height:11.41rem;
-  }
-
-  #case .video{
-    position: relative;
-    margin:0 auto;
-    z-index:20;
-    width:6.6rem;
-    height:4rem;
-    top:-10rem;
-    border:2px rgb(31,31,31) solid;
-  }
-
-  #case .margin-video{
-    margin-top:-3.94rem !important;
-  }
-
-
-  #news .bg-top-title{
-    margin: 0.5rem auto 0.4rem;
-  }
-
-  #news .bg-middle-title{
-    margin:0 auto;
   }
 
 

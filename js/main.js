@@ -1,5 +1,5 @@
 
-  var pConfig={
+ var pConfig={
     t_en:['SERVICE','EVENTS','ACTIVITIES','PARTNERS','JOBS','CONTACT'],
     t_cn:['服务','案例','活动','合作伙伴',"招聘","联系我们"],
     t_slogan:[''],
@@ -17,13 +17,38 @@
     swiper2_1:null,
     swiper2_2:null,
     swiper2_3:null,
+    audio:null,
+    audioStatus:0, //记录播放状态,0初始状态，1正在播放，-1手动暂停
   }
-  var slideHeight = $(window).height();
+  var slideHeight = Math.max($(window).height(),667);
+
 
 
 
 //移动端相关初始化处理
 function initInMobile($){
+  
+
+  pConfig.audio=document.getElementById('audio')
+  pConfig.audio.src='images/music.mp3'
+  pConfig.audio.load()
+
+  //尝试处理chrome50阻止默认播放的问题，未解决
+  var pro=pConfig.audio.play()
+  if(pro!==undefined){
+    pro.then(function(res){
+      pConfig.audio.play()
+    }).catch(function(res){
+      pConfig.audio.play()
+    })
+  }
+
+  document.addEventListener('touchstart',function(){
+    if(!pConfig.audioStatus){
+      pConfig.audio.play()
+      pConfig.audioStatus=1
+    }
+  })
 
   var _step=setInterval(function(){  
     if(pConfig.percent<100){
@@ -38,25 +63,44 @@ function initInMobile($){
     }
   },250)
 
+  
+  $('#AudioBtn').on('click',function(){
+      if($(this).hasClass('on')){
+         $(this).removeClass('on').addClass('off')
+         if(pConfig.audio){
+           pConfig.audio.pause()
+           pConfig.audioStatus=-1
+         }  
+      }else{
+         $(this).removeClass('off').addClass('on')
+         if(pConfig.audio){
+           pConfig.audio.play()
+           pConfig.audioStatus=1
+         }
+      }
+  })
+
+  
+
   //#main-slider
 
   //初始化的时候高度
   $('#tops').css('height', slideHeight);
-  $('#service').css({'display':'none','height':0});
-  $('#case').css({'display':'none','height':0});
-  $('#news').css({'display':'none','height':0});
-  $('#team').css({'display':'none','height':0});
-  $('#contact').css({'display':'none','height':0});
+  $('#service').css({'height':slideHeight});
+  // $('#case').css({'height':slideHeight});
+  // $('#news').css({'height':slideHeight});
+  // $('#team').css({'min-height':slideHeight});
+  // $('#contact').css({'height':slideHeight});
 
-  //增加监听上滑事件
-  var y1=0,y2=0
-  $(document).delegate('section','touchstart',function(e){
-    y1=e.originalEvent.touches[0].pageY
-  })
-  $(document).delegate('section','touchend',function(e){
-    y2=e.originalEvent.changedTouches[0].pageY
-    if(y1-y2>=100) pageScrollNext()
-  })
+  // //增加监听上滑事件
+  // var y1=0,y2=0
+  // $(document).delegate('section','touchstart',function(e){
+  //   y1=e.originalEvent.touches[0].pageY
+  // })
+  // $(document).delegate('section','touchend',function(e){
+  //   y2=e.originalEvent.changedTouches[0].pageY
+  //   if(y1-y2>=100) pageScrollNext()
+  // })
 
 }
 
@@ -67,15 +111,18 @@ function initInPC($){
         //  $("body").animate({"scrollTop":"0px"},100);
         /**初始化Swiper */
         if(!pConfig.swiper2){
-  
+          
           pConfig.swiper2=new Swiper('#swiper2', {
             autoHeight: true, //enable auto height
             spaceBetween: 20,
             slidesPerView: 1,
             passiveListeners : false,
             direction: 'vertical',
+            lazy: {
+              loadPrevNext: true,
+            },
             autoplay: {
-              delay: 3000,
+              delay: 6000,
               disableOnInteraction: false,
               waitForTransition:true,
             },
@@ -106,6 +153,9 @@ function initInPC($){
         $(this).find('article').css({'display':'none'})
       })
 
+
+     $('.lazy').lazyload() 
+
       initMap(1)
       initVideo()
 
@@ -116,24 +166,24 @@ function initInPC($){
 function initVideo(type){
      var ext=type?'':'0',width=type?247.5:275,height=type?150:380
      pConfig.video0=new Clappr.Player({
-      source: "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4", 
-      poster: './images/poster.png',
+      source: "https://gzmetis.oss-cn-shenzhen.aliyuncs.com/BoLaiYa_Webshow_lowq.mp4", 
+      poster: './images/poster1.png',
       mute: true,
       parentId: "#video0"+ext,
-      height:height,
-      width:width
+      height:type?height:256,
+      width:type?width:391,
       });
      pConfig.video1=new Clappr.Player({
-        source: "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4", 
-        poster: './images/poster.png',
+        source: "https://gzmetis.oss-cn-shenzhen.aliyuncs.com/WeiNuoNa_Webshow_lowq.mp4",
+        poster: './images/poster0.png',
         mute: true,
         parentId: "#video1"+ext,
-        height:height,
-        width:width
+        height:type?height:256,
+        width:type?width:391,
      });
      pConfig.video2=new Clappr.Player({
-      source: "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4", 
-      poster: './images/poster.png',
+      source: "./images/xiaohongshu.mp4", 
+      poster: './images/poster2.png',
       mute: true,
       parentId: "#video2"+ext,
       height:height,
@@ -143,16 +193,21 @@ function initVideo(type){
 
 //弹出层新生成swiper
 function showSilder(index){
-    var marginTop=(slideHeight/2-300)+'px'
+
+    var marginTop=(($(window).height())/2-300)+'px'
     $('.u-masker .swiper-contain-area .swiper-container').addClass('hidden')
     $('.u-masker').removeClass('hidden')
     $('.u-masker .swiper-contain-area').css({'margin-top':marginTop})
     if(index==1){
       $('#swiper3').removeClass('hidden') 
-     if(!pConfig.swiper3) pConfig.swiper3=new Swiper('#swiper3', {
+     if(!pConfig.swiper3) {
+       pConfig.swiper3=new Swiper('#swiper3', {
         autoHeight: true, //enable auto height
         spaceBetween: 20,
         slidesPerView: 1,
+        lazy: {
+          loadPrevNext: true,
+        },
         passiveListeners : false,
         loop: true,
         navigation: {
@@ -160,13 +215,19 @@ function showSilder(index){
           prevEl: '.swiper-button-prev',
         },
       });
+     }
     }
     if(index==2){
       $('#swiper4').removeClass('hidden') 
-      if(!pConfig.swiper4) pConfig.swiper4=new Swiper('#swiper4', {
+      if(!pConfig.swiper4) {
+
+        pConfig.swiper4=new Swiper('#swiper4', {
         autoHeight: true, //enable auto height
         spaceBetween: 20,
         slidesPerView: 1,
+        lazy: {
+          loadPrevNext: true,
+        },
         passiveListeners : false,
         loop: true,
         navigation: {
@@ -175,11 +236,17 @@ function showSilder(index){
         },
       });
     }
+    }
     if(index==3){
       $('#swiper5').removeClass('hidden') 
-      if(!pConfig.swiper5) pConfig.swiper5=new Swiper('#swiper5', {
+      if(!pConfig.swiper5){
+
+        pConfig.swiper5=new Swiper('#swiper5', {
         autoHeight: true, //enable auto height
         spaceBetween: 20,
+        lazy: {
+          loadPrevNext: true,
+        },
         slidesPerView: 1,
         passiveListeners : false,
         loop: true,
@@ -188,6 +255,7 @@ function showSilder(index){
           prevEl: '.swiper-button-prev',
         },
       });
+     }
     }
 }
 
@@ -205,14 +273,14 @@ function closeMasker(){
 function pageScrollNext(){
   if(pConfig.preventScroll) return 
   pConfig.preventScroll=true 
-  if(pConfig.index<5){
+  if(pConfig.index<2){
     var _dom=$('section').eq(++pConfig.index),_id=_dom.attr('id')
     _dom.css({'display':'block','height':slideHeight}).addClass('fadeInUp')
     // location.href='#'+_id
     window.scroll({top:(slideHeight*pConfig.index), left: 0, behavior: 'smooth'})
     //需要滑动到下一屏
     setTimeout(function(){pConfig.preventScroll=false},1000)
-    if(pConfig.index>=5) $('#bottom-arrow').remove()
+    if(pConfig.index>=1) $('#bottom-arrow').remove()
   }
 
 }
@@ -239,6 +307,8 @@ jQuery(function($) {
   var w = $(window).width();
 
 
+  $('html, body').animate({ scrollTop:0})
+  
 
 
   $(window).load(function() {
@@ -280,13 +350,24 @@ jQuery(function($) {
     }else{
       /**优化方案 等到滑到对应屏 才加载对应的item */
       let scrollHeight=$(window).scrollTop()
-      if(scrollHeight>slideHeight){
+      if(scrollHeight<slideHeight)  $('#bottom-arrow').css({'display':'block'})
+      if(scrollHeight>=slideHeight){
+        $('#bottom-arrow').css({'display':'none'})
         if(!pConfig.swiper0){
+          // $('#swiper0  img.lazy').each(function(){
+          //   $(this).lazyload({effect: "fadeIn",threshold :6000,failurelimit:100})
+          // })
+          // $('#swiper1  img.lazy').each(function(){
+          //   $(this).lazyload({effect: "fadeIn",threshold :3000,failurelimit:20})
+          // })
           pConfig.swiper0=new Swiper('#swiper0', {
           autoHeight: true, //enable auto height
           autoplay: {
-            delay: 3000,
+            delay: 6000,
             disableOnInteraction: false,
+          },
+          lazy: {
+            loadPrevNext: true,
           },
           spaceBetween: 20,
           slidesPerView: 1,
@@ -307,8 +388,16 @@ jQuery(function($) {
    
       }
       if(scrollHeight>=2*slideHeight){
-        if(!pConfig.swiper1) pConfig.swiper1=new Swiper('#swiper1', {
+        if(!pConfig.swiper1){
+          pConfig.swiper1=new Swiper('#swiper1', {
           autoHeight: true, //enable auto height
+          lazy: {
+            loadPrevNext: true,
+          },
+          autoplay: {
+            delay: 3000,
+            disableOnInteraction: false,
+          },
           spaceBetween: 20,
           slidesPerView: 1,
           passiveListeners : false,
@@ -318,6 +407,7 @@ jQuery(function($) {
             clickable: true,
           },
         });
+        }
       }
      
       if(scrollHeight>=4*slideHeight){ 
@@ -338,20 +428,30 @@ jQuery(function($) {
 
 
  
-
+  var _previousClick=0
   $('.navbar-collapse ul li').hover(function() {
     var i=$(this).index()
+    //要将上次hover字体归为英文
+    $('.navbar-collapse ul li').eq(_previousClick).find('a').text(pConfig.t_en[_previousClick])
     $(this).find('a').text(pConfig.t_cn[i])
-
+    $(this).addClass('active').siblings().removeClass('active')
   },function(){
     var i=$(this).index()
     $(this).find('a').text(pConfig.t_en[i])
+
+
+    //恢复之前click选中的index
+    $('.navbar-collapse ul li').eq(_previousClick).find('a').text(pConfig.t_cn[_previousClick])
+    $('.navbar-collapse ul li').eq(_previousClick).addClass('active').siblings().removeClass('active')
+
   });
 
-  $('.navbar-collapse ul li a').on('click', function() {
+  $('.navbar-collapse ul li').on('click', function() {
     var i=$(this).index()
+    _previousClick=i
     $(this).find('a').text(pConfig.t_cn[i])
-    $('html, body').animate({ scrollTop: $(this.hash).offset().top - 5 }, 500);
+    $(this).addClass('active').siblings().removeClass('active')
+    $('html, body').animate({ scrollTop: $($(this).find('a')[0].hash).offset().top - 5 }, 500);
     return false;
   });
 
@@ -375,6 +475,7 @@ jQuery(function($) {
           .removeClass('active')
           .eq(i)
           .addClass('active');
+          _previousClick=i
         $('.navbar-collapse li.scroll').each(function(i){
            $(this).find('a').text(pConfig.t_en[i]) 
         })  
@@ -402,27 +503,7 @@ jQuery(function($) {
     }
   });
 
-  //Countdown
-  $('#features').bind('inview', function(event, visible, visiblePartX, visiblePartY) {
-    if (visible) {
-      $(this)
-        .find('.timer')
-        .each(function() {
-          var $this = $(this);
-          $({ Counter: 0 }).animate(
-            { Counter: $this.text() },
-            {
-              duration: 2000,
-              easing: 'swing',
-              step: function() {
-                $this.text(Math.ceil(this.Counter));
-              },
-            }
-          );
-        });
-      $(this).unbind('inview');
-    }
-  });
+
 
   // // Portfolio Single View
   // $('#portfolio').on('click', '.folio-read-more', function(event) {

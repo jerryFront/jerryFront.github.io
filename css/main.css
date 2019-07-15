@@ -140,8 +140,8 @@ a:hover {
 .u-masker .swiper-contain-area{
   position:relative;
   margin:0 auto;
-  width:1000px;
-  height:600px;
+  width:1110px;
+  height:666px;
 }
 
 .u-masker .swiper-contain-area .close{
@@ -154,14 +154,14 @@ a:hover {
 
 .u-masker .swiper-container{
    position:relative;
-   width:1000px;
-   height:600px;
+   width:1110px;
+   height:666px;
 }
 
 .u-masker .swiper-slide img{
   position:relative;
   width:100%;
-  height:600px;
+  height:666px;
 }
 
 .u-masker .swiper-slide .video{
@@ -170,6 +170,16 @@ a:hover {
   left:127px;
   width:275px;
   height:380px;
+  /* border:1px rgb(51,51,51) solid; */
+}
+
+
+.u-masker .swiper-slide .video1{
+  position:absolute;
+  top:155px;
+  left:85px;
+  width:391px;
+  height:256px;
   /* border:1px rgb(51,51,51) solid; */
 }
 
@@ -476,7 +486,8 @@ a:hover {
   color: #fff;
   text-transform: uppercase;
   font-size: 14px;
-  /* font-weight: 600; */
+  min-width:93px;
+  text-align: center;
   padding-top: 30px;
   padding-bottom: 30px;
 }
@@ -548,6 +559,18 @@ a:hover {
   background-size:cover;
 }
 
+#tops .bottle-area{
+  position:absolute;
+  /* width:342px;
+  height:132px; */
+  width:376px;
+  height:145px;
+  left:71px;
+  bottom:-70px;
+  background:url(../images/service/bottle.png) center no-repeat;
+  background-size:contain;
+}
+
 
 /*************************
 ********Service CSS*******
@@ -568,7 +591,7 @@ a:hover {
   width:1178px;
   height:727.6px;
   background:url(../images/section/service.png) center no-repeat;
-  background-size:cover;
+  background-size:contain;
 }
 
 .service-icon {
@@ -596,6 +619,8 @@ a:hover {
 #service article{
   width:100%;
 }
+
+
 
 #service .foucs-area{
   position:relative;
@@ -636,6 +661,16 @@ a:hover {
    border:1px rgb(234,104,162) solid;
    background:rgb(234,104,162);
 
+}
+
+#service .service-slogan{
+  float:none;
+  position:relative;
+  margin:20px auto;
+  width:569px;
+  height:68px;
+  background:url(../images/service/service_slogn.png) center no-repeat;
+  background-size:cover;
 }
 
 
@@ -844,6 +879,14 @@ a:hover {
   margin:151px 10px 5px 10px;
 }
 
+#news .activity-area nav article .text.marginTop{
+  position:relative;
+  font-size:10px;
+  line-height:16px;
+  color:#fff;
+  margin:135px 10px 5px 10px;
+}
+
 #news .activity-area nav article .tip{
   position:relative;
   text-indent:10px;
@@ -952,7 +995,7 @@ height:100% !important;
   padding-top: 0;
   position:relative;
   margin:0 auto;
-  min-height:567px;
+  /* min-height:567px; */
 }
 
 .team_border {
@@ -961,15 +1004,16 @@ height:100% !important;
 
 #team .bg-word{
   position:absolute;
-  top:0;
+  top:50%;
   left:50%;
-  width:919px;
-  height:567px;
-  background:url(../images/mobile/job_word.png) center center no-repeat;
-  background-size:cover; 
-  transform: translateX(-50%);
-  -webkit-transform:translateX(-50%);
-  -moz-transform: translateX(-50%);
+  display:block;
+  width:auto;
+  height:360px;
+  /* background:url(../images/mobile/job_word.png) center center no-repeat;
+  background-size:cover;  */
+  transform: translateX(-50%) translateY(-50%);
+  -webkit-transform:translateX(-50%) translateY(-50%);
+  -moz-transform: translateX(-50%) translateY(-50%);
 }
 
 .team-member {
@@ -1022,15 +1066,15 @@ height:100% !important;
   -o-transform: rotate(180deg);
 }
 .pane_All {
-  margin-left: 4%;
-  width: 90%;
+  margin-left:1%;
+  width: 98%;
   height: 100%;
   display: none;
 }
 .pane_content {
   padding-top: 13px;
   margin: 0 auto;
-  width: 90%;
+  width: 98%;
 }
 .pane_content a {
   display: block;

@@ -150,6 +150,25 @@
 	}
 
 	
+	.u-masker .swiper-contain-area{
+		position:relative;
+		margin:0 auto;
+		width:992px;
+		height:596px;
+	}
+
+	.u-masker .swiper-container{
+		position:relative;
+		width:992px;
+		height:596px;
+	 }
+	 
+	 .u-masker .swiper-slide img{
+	   position:relative;
+	   width:100%;
+	   height:596px;
+	 }
+	
 
 }
 

@@ -15,7 +15,6 @@
   <link href="css/lightbox.css" rel="stylesheet">
   <link href="css/main.css" rel="stylesheet">
   <link href="css/responsive.css" rel="stylesheet">
-  <link href="css/mobile.css" rel="stylesheet">
   <link id="css-preset" href="css/presets/preset1.css" rel="stylesheet">
   <link href="css/swiper.min.css" rel="stylesheet">
 
@@ -28,7 +27,29 @@
 
   <link href="css/font.css" rel="stylesheet" type="text/css">
   <script>
+
+
     (function(doc,win){
+       
+          window.prevScale=0 //初始化记录上一次resize之前的所在页 ，-1表示 mobile,1表示pc
+          function resize(){
+            var docEl=document.documentElement
+            var _winWidth=docEl?docEl.clientWidth:0  
+            if(_winWidth<=768){
+              if(prevScale>=0) window.location.replace('index1.html')
+              prevScale=-1
+            }else{
+              if(prevScale<0) window.location.replace('index.html')
+              prevScale=1
+            } 
+          }
+
+          resize()
+          
+          window.onresize=function(){resize()}
+
+
+
         var docEl=doc.documentElement
         var meta=document.getElementsByTagName("meta")['viewport']
         var resizeEvt='orientationchange' in window?'orientationchange':'resize'
@@ -36,8 +57,10 @@
           var _winWidth=docEl?docEl.clientWidth:0  
           if(_winWidth<=768){
             meta.setAttribute('content','width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no') 
+            prevScale=-1
           }else{
-            meta.setAttribute('content','width=device-width, initial-scale=1') 
+            meta.setAttribute('content','width=device-width, initial-scale=1')
+            prevScale=1
           } 
           docEl.style.fontSize=_winWidth/10+'px'
         }
@@ -55,22 +78,11 @@
 
 <body>
 
-  <!--.preloader-->
-  <div class="preloader">
-     <aside class="flex align-items-center justify-content-center flex-direction-column">
-       <article></article>
-       <div class="animation-area">
-         <nav class="a"></nav>
-         <nav class="b"></nav>
-         <nav class="c"></nav>
-         <nav class="d"></nav>
-         <div class="text">10%</div>
-       </div>
-     </aside>
-  </div>
+
+
   <!--/.preloader-->
 
-  <div id="bottom-arrow" onclick="pageScrollNext()"></div>
+
 
   <header id="home">
 
@@ -81,7 +93,7 @@
           <img class="navbar-left nav-image" src="images/nav/logo.png" />
           <ul class="nav navbar-nav navbar-right">
             <li class="scroll active">
-              <a href="#service">SERVICE</a>
+              <a href="#service">服务</a>
             </li>
             <li class="scroll">
               <a href="#case">EVENTS</a>
@@ -107,14 +119,12 @@
   <!--/#home-->
 
   <section id="tops" class="fadeInUp">
-      <div class="col-xs-0 col-sm-12 col-md-12 col-lg-12 container-area"></div> 
+      <div class="col-xs-0 col-sm-12 col-md-12 col-lg-12 container-area">
 
-      <!-- mobile -->
-      <div class="row col-xs-12 col-sm-12 col-md-0 col-lg-0 tops-page">
-             <nav class="top-right"></nav>
-             <nav class="top-title"></nav>
-             <nav class="top-bottom"></nav>
-      </div>
+        <div class="bottle-area"></div>
+      </div> 
+
+
   </section>
   <!--/#tops-->
 
@@ -122,8 +132,7 @@
   style="visibility: visible; animation-duration: 1000ms; animation-delay: 300ms; animation-name: fadeInUp;">
     <div class="col-xs-0 col-sm-12 col-md-12 col-lg-12 container-area"></div> 
     
-    <div class="col-sm-12 col-md-0 col-lg-0 bg-top"></div>
-    <div class="col-sm-12 col-md-0 col-lg-0 bg-word"></div>
+
     <div class="container">
      <div class="row">
         <div class="text-center col-sm-6  col-xs-12 slogan-area"></div>
@@ -136,9 +145,10 @@
             </aside>
             <div class="introduce"></div>
         </div>
+        <div class="col-xs-0 col-sm-12 col-md-12 col-lg-12 service-slogan"></div>
      </div>
     </div>
-    <div class="col-sm-12 col-md-0 col-lg-0 bg-bottom"></div>
+
   </section>
   <!--/#services-->
 
@@ -151,105 +161,15 @@
           </div>
 
 
-          <div class="col-md-0 col-lg-0 col-sm-0">
 
-              <div class="col-md-0 col-lg-0 col-sm-0 swiper-container" id="swiper0">
-                  <div class="swiper-wrapper">
-                      <div class="swiper-slide">
-                         <img src="images/case/bo/1@2x.png" />
-                         <div class="text1"></div>
-                      </div>
-                     <!-- https://f.us.sinaimg.cn/002vuDzXgx07nTPdEbLF01040200Svu10k010.mp4?label=mp4_720p&template=1280x720.28&Expires=1562170660&ssig=Iiyz800UxI&KID=unistore,video -->
-                     <div class="swiper-slide">
-                        <img src="images/case/bo/2video@2x.png" />
-
-                        <div id="video0" class="video" ></div>
-
-                        <div class="text1 margin-video"></div>  
-                     </div>
-                     
-                     <div class="swiper-slide">
-                      <img src="images/case/bo/3@2x.png" />
-                      <div class="text1"></div>
-                     </div>
-  
-                     <div class="swiper-slide">
-                      <img src="images/case/bo/4@2x.png" />
-                      <div class="text1"></div>
-                     </div>
-  
-                     <div class="swiper-slide">
-                      <img src="images/case/bo/5@2x.png" />
-                      <div class="text1"></div>
-                     </div>
-
-                       
-                     <div class="swiper-slide">
-                      <img src="images/case/wei/1@2x.png" />
-                      <div class="text2"></div>
-                     </div>
-                       
-                     <!--https://taobaolive.taobao.com/room/index.html?feedId=212806605884-->
-                     <div class="swiper-slide">
-                      <img src="images/case/wei/2video@2x.png" />
-
-                      <div id="video1" class="video" ></div>
-
-                      <div class="text2 margin-video"></div>
-                     </div>
-                       
-                     <div class="swiper-slide">
-                      <img src="images/case/wei/3@2x.png" />
-                      <div class="text2"></div>
-                     </div>
-                       
-                     <div class="swiper-slide">
-                      <img src="images/case/wei/4@2x.png" />
-                      <div class="text2"></div>
-                     </div>
-
-                     <div class="swiper-slide">
-                      <img src="images/case/run/1@2x.png" />
-                      <div class="text3"></div>
-                     </div>
-                     
-                     <!-- http://v.xiaohongshu.com/b692c4d19dd41c97dc383a38b0bdaab01350477a?sign=6de2943bc00f222979e74d6cb126779d&t=5d1f7400 -->
-                     <!--https://www.xiaohongshu.com/discovery/item/5bd0713b07ef1c2e6e785317-->
-                     <div class="swiper-slide">
-                      <img src="images/case/run/2video@2x.png" />
-
-                      <div id="video2" class="video" ></div>
-
-                      <div class="text3 margin-video"></div>
-                     </div>
-
-                     <div class="swiper-slide">
-                      <img src="images/case/run/3@2x.png" />
-                      <div class="text3"></div>
-                     </div>
-
-                     <div class="swiper-slide">
-                      <img src="images/case/run/4@2x.png" />
-                      <div class="text3"></div>
-                     </div>
-                     
-  
-    
-
-                  </div>
-                  <!-- Add Pagination -->
-                  <div class="swiper-button-next"></div>
-                  <div class="swiper-button-prev"></div>
-              </div> 
-  
-          </div>
 
           <div class="col-md-12 col-lg-12 col-xs-0">
 
               <div class="col-xs-0  swiper-container" id="swiper2">
                   <div class="swiper-wrapper">
                       <div class="swiper-slide">
-                        <img src="images/pc_case/bo/A0.jpg" />
+                        <img class="swiper-lazy" data-src="images/pc_case/bo/A0.jpg" />
+                        <div class="swiper-lazy-preloader"></div>
                          <div class="image-background  hidden">
                           <nav onclick="showSilder(1)"><p>查看</p><p>案例</p></nav>
                         </div>
@@ -257,7 +177,8 @@
                       </div>
                                     
                      <div class="swiper-slide">
-                      <img src="images/pc_case/wei/A0.jpg" />
+                      <img class="swiper-lazy" data-src="images/pc_case/wei/A0.jpg" />
+                      <div class="swiper-lazy-preloader"></div>
                       <div class="image-background hidden">
                           <nav onclick="showSilder(2)"><p>查看</p><p>案例</p></nav>
                       </div>
@@ -265,7 +186,8 @@
                      </div>
                                  
                      <div class="swiper-slide">
-                      <img src="images/pc_case/run/A0.jpg" />
+                      <img class="swiper-lazy" data-src="images/pc_case/run/A0.jpg" />
+                      <div class="swiper-lazy-preloader"></div>
                       <div class="image-background">
                           <nav onclick="showSilder(3)"><p>查看</p><p>案例</p></nav>
                       </div>
@@ -298,23 +220,26 @@
               <div class="col-xs-0  swiper-container hidden" id="swiper3">
                   <div class="swiper-wrapper">
                       <div class="swiper-slide">
-                        <img src="images/pc_case/bo/video.png" />
-
-                        <div id="video00" class="video"></div>
+                        <img class="swiper-lazy" data-src="images/pc_case/bo/video.png" />
+                        <div class="swiper-lazy-preloader"></div>
+                        <div id="video00" class="video1"></div>
 
                         
                       </div>
                                     
                     <div class="swiper-slide">
-                      <img src="images/pc_case/bo/A1.png" />
+                      <img class="swiper-lazy" data-src="images/pc_case/bo/A1.png" />
+                      <div class="swiper-lazy-preloader"></div>
                     </div>
                                 
                     <div class="swiper-slide">
-                        <img src="images/pc_case/bo/A2.png" />
+                        <img class="swiper-lazy" data-src="images/pc_case/bo/A2.png" />
+                        <div class="swiper-lazy-preloader"></div>
                     </div>
                           
                     <div class="swiper-slide">
-                        <img src="images/pc_case/bo/A3.png" />
+                        <img class="swiper-lazy" data-src="images/pc_case/bo/A3.png" />
+                        <div class="swiper-lazy-preloader"></div>
                     </div>
 
                   </div>
@@ -329,18 +254,20 @@
                   
                   <div class="swiper-wrapper">
                       <div class="swiper-slide">
-                        <img src="images/pc_case/wei/video.png" />
-                      
-                        <div id="video10" class="video"></div>
+                        <img class="swiper-lazy" data-src="images/pc_case/wei/video.png" />
+                        <div class="swiper-lazy-preloader"></div>
+                        <div id="video10" class="video1"></div>
 
                       </div>
                                     
                     <div class="swiper-slide">
-                      <img src="images/pc_case/wei/A1.png" />
+                      <img class="swiper-lazy" data-src="images/pc_case/wei/A1.png" />
+                      <div class="swiper-lazy-preloader"></div>
                     </div>
                                 
                     <div class="swiper-slide">
-                        <img src="images/pc_case/wei/A2.png" />
+                        <img class="swiper-lazy" data-src="images/pc_case/wei/A2.png" />
+                        <div class="swiper-lazy-preloader"></div>
                     </div>
 
                   </div>
@@ -355,18 +282,20 @@
                   
                   <div class="swiper-wrapper">
                       <div class="swiper-slide">
-                        <img src="images/pc_case/run/video.png" />
-                       
+                        <img class="swiper-lazy" data-src="images/pc_case/run/video.png" />
+                        <div class="swiper-lazy-preloader"></div>
                         <div id="video20" class="video"></div>
 
                       </div>
                                     
                     <div class="swiper-slide">
-                      <img src="images/pc_case/run/A1.png" />
+                      <img class="swiper-lazy" data-src="images/pc_case/run/A1.png" />
+                      <div class="swiper-lazy-preloader"></div>
                     </div>
                                 
                     <div class="swiper-slide">
-                        <img src="images/pc_case/run/A2.png" />
+                        <img class="swiper-lazy" data-src="images/pc_case/run/A2.png" />
+                        <div class="swiper-lazy-preloader"></div>
                     </div>
 
                   </div>
@@ -397,7 +326,7 @@
       <div class="flex flex-wrap-wrap  justify-content-between  activity-area">
        
         <nav>
-          <img src="images/activity/2.png" />
+          <img class="lazy" data-original="images/activity/2.png" />
           <article>
             <div class="text"> 巴厘岛的天空分外蓝，和你一起旅行才够甜。 </div>
             <div class="tip"> ——巴厘岛团队游</div>  
@@ -405,15 +334,15 @@
         </nav>
 
         <nav>
-          <img src="images/activity/3.png" />
+          <img class="lazy" data-original="images/activity/3.png" />
           <article>
-            <div class="text"> 泰国行手账已满，麦蒂斯成员未满。  </div>
-            <div class="tip"> ——泰国团队游</div> 
+              <div class="text"> 爱工作，也和你一样，热爱生活。</div>
+              <div class="tip"> ——每一次团建，让我们更有默契</div> 
           </article>
         </nav>
 
         <nav>
-          <img src="images/activity/5.png" />
+          <img class="lazy" data-original="images/activity/5.png" />
           <article>
             <div class="text"> 了解“她”，研究“她”。</div>
             <div class="tip">  ——上海美博会</div> 
@@ -422,24 +351,24 @@
 
 
         <nav>
-          <img src="images/activity/4.png" />
+          <img class="lazy" data-original="images/activity/4.png" />
           <article>
-            <div class="text"> 爱工作，也和你一样，热爱生活。</div>
-            <div class="tip"> ——每一次团建，让我们更有默契</div> 
+            <div class="text"> 泰国行手账已满，麦蒂斯成员未满。  </div>
+            <div class="tip"> ——泰国团队游</div> 
           </article>
         </nav>
 
 
         <nav>
-          <img src="images/activity/6.png" />
+          <img class="lazy" data-original="images/activity/6.png" />
           <article>
-            <div class="text"> 像我们这样才华横溢的人，就像汽水里的泡泡， 会靠着自己的力量，慢慢升起。但偶尔，也需要碰撞。</div>
+            <div class="text marginTop"> 像我们这样才华横溢的人，就像汽水里的泡泡， 会靠着自己的力量，慢慢升起。但偶尔，也需要碰撞。</div>
             <div class="tip">  ——珠海温泉案例分享会</div>  
           </article>
         </nav>
 
         <nav>
-          <img src="images/activity/1.png" />
+          <img class="lazy" data-original="images/activity/1.png" />
           <article>
             <div class="text"> 你有想法，我有态度，我们一起沸腾生活的艺术。</div>
             <div class="tip"> ——杭州淘宝造物节</div> 
@@ -459,66 +388,12 @@
           <div class="col-sm-8 col-md-0 col-lg-0 bg-top-title"></div>
         </div>
 
-        <div class="col-md-0 col-lg-0 col-sm-0">
-
-            <div class="col-md-0 col-lg-0  swiper-container" id="swiper1">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                       <img src="images/activity/1.png" />
-                       <div class="text"> 你有想法，我有态度，我们一起沸腾生活的艺术。</div>
-                       <div class="tip"> ——杭州淘宝造物节</div>      
-                    </div>
-                   
-                   <div class="swiper-slide">
-                      <img src="images/activity/2.png" />
-                      <div class="text"> 巴厘岛的天空分外蓝，和你一起旅行才够甜。 </div>
-                      <div class="tip"> ——巴厘岛团队游</div>    
-                   </div>
-                   
-                   <div class="swiper-slide">
-                      <img src="images/activity/3.png" />
-                      <div class="text"> 爱工作，也和你一样，热爱生活。</div>
-                      <div class="tip"> ——每一次团建，让我们更有默契</div> 
-                   </div>
-
-                   <div class="swiper-slide">
-                      <img src="images/activity/4.png" />
-                      <div class="text"> 了解“她”，研究“她”。</div>
-                      <div class="tip">  ——上海美博会</div> 
-                   </div>
-
-                   <div class="swiper-slide">
-                      <img src="images/activity/5.png" />
-                      <div class="text"> 泰国行手账已满，麦蒂斯成员未满。  </div>
-                      <div class="tip"> ——泰国团队游</div> 
-                   </div>
-
-                   <div class="swiper-slide">
-                      <img src="images/activity/6.png" />
-                      <div class="text"> 像我们这样才华横溢的人，就像汽水里的泡泡， 会靠着自己的力量，慢慢升起。但偶尔，也需要碰撞。</div>
-                      <div class="tip">  ——珠海温泉案例分享会</div>   
-                   </div>
-
-
-  
-                </div>
-
-                 <!-- Add Pagination -->
-                 <div class="swiper-pagination"></div>
-              </div> 
-
-        </div>
-      
-
-
-
 
       </div>
       <div id="partner" class="col-sm-8 col-sm-offset-2 col-xs-12 col-md-8 col-md-offset-2 adverts-container">
       <div class="row">
           <div class="text-center col-sm-12 col-sm-offset-0 wow fadeInUp animated" data-wow-duration="1000ms" data-wow-delay="300ms"
           style="visibility: visible; animation-duration: 1000ms; animation-delay: 300ms; animation-name: fadeInUp;">
-          <div class="col-sm-0 col-md-0 col-lg-0 bg-middle-title"></div>
           <div class="col-xs-0 col-sm-12 col-md-12 col-lg-12 bg-middle-title"></div>
           </div>
 
@@ -559,7 +434,7 @@
   </section>
 
   <section id="team">
-    <div class="col-sm-12 col-md-12 col-lg-12 bg-word"></div>
+    <img class="col-sm-12 col-md-12 col-lg-12 bg-word" src="images/mobile/job_word.png" />
     <div class="container pb_60 pt_60">
       <div class="col-sm-8 col-sm-offset-2 col-xs-12 team-members pb_40">
         <div class="row">
@@ -698,37 +573,7 @@
 
         <div class="contact-form wow fadeIn" data-wow-duration="1000ms" data-wow-delay="600ms" style="visibility: hidden; animation-duration: 1000ms; animation-delay: 600ms; animation-name: none;">
           
-          <div class="col-sm-0 col-md-0 col-lg-0 row">
-            <div class="col-sm-6">
-                <div class="row  wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="300ms" style="visibility: hidden; animation-duration: 1000ms; animation-delay: 300ms; animation-name: none;">
-                  <div class="col-sm-6">
-                    <div id="map"></div>
-                  </div>
-                </div>
-  
-            </div>
-            <div class="col-sm-6">
-              <div class="contact-info wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="300ms" style="visibility: hidden; animation-duration: 1000ms; animation-delay: 300ms; animation-name: none;">
-                <div class="info">
-                  <div class="flex align-items-center column">
-                    <i class="icon_map"></i>
-                    <p>广州市天河区黄埔大道西100号之二1101室 </p>
-                  </div>
-                  <div class="flex align-items-center column">
-                  <i class="icon_phone"></i>
-                  <p>020-83629342</p>
-                  </div>
-                  <div class="flex align-items-center column">
-                  <i class="icon_Email"></i>
-                  <p>business@gzmetis.com</p>
-                  </div>
-                </div>
-                <div class="logo-area">
-                  <div class="logo"></div>
-                </div>
-              </div>
-            </div>
-          </div>
+
         
 
           <div class="col-xs-0 col-sm-10 col-sm-offset-2 row contact-content">
@@ -788,14 +633,13 @@
 
   <script type="text/javascript" src="js/jquery.js"></script>
   <script type="text/javascript" src="js/bootstrap.min.js"></script>
-  <script type="text/javascript" src="js/jquery.inview.min.js"></script> <!--延时加载-->
   <script type="text/javascript" src="js/wow.min.js"></script>
+  <script type="text/javascript" src="js/jquery.lazyload.min.js"></script>
   <script type="text/javascript" src="js/mousescroll.js"></script>
   <script type="text/javascript" src="js/smoothscroll.js"></script>
   <script type="text/javascript" src="js/swiper.min.js"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js"></script>
-  <script type="text/javascript" src="js/main.js"></script>
-  <script type="text/javascript" src="js/loadImages.min.js"></script>
+  <script type="text/javascript" src="js/main.js?v=2"></script>
   <script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=1f9i4qLBWOOKqEAKLTfdxhGCrDkT8N4y"></script>
 </body>
 
